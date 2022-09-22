@@ -1,12 +1,14 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
+
 const gallery = galleryItems;
 
 const listRef = document.querySelector(".gallery");
 
-const markup = gallery
-	.map(
-		image => `<div class="gallery__item">
+function markupGallery(gallery) {
+	return gallery
+		.map(
+			image => `<div class="gallery__item">
   <a class="gallery__link" href="${image.original}">
     <img
       class="gallery__image"
@@ -16,10 +18,13 @@ const markup = gallery
     />
   </a>
 </div>`,
-	)
-	.join(" ");
-
+		)
+		.join(" ");
+}
+const markup = markupGallery(gallery);
 listRef.innerHTML = markup;
+
+let instance = basicLightbox.create(``);
 
 listRef.addEventListener("click", showImageFullSizeInModal);
 
@@ -27,19 +32,23 @@ function showImageFullSizeInModal(e) {
 	e.preventDefault();
 	if (!e.target.classList.contains("gallery__image")) return;
 
-	const instance = basicLightbox.create(`
-	    <div class="modal">
-	        <img src="${e.target.dataset.source}">
-	    </div>
-	`);
-	instance.show();
+	openModal(e);
 
 	document.addEventListener("keydown", closeModal);
 
-	function closeModal(e) {
-		if (e.code === "Escape") {
-			instance.close();
-			document.removeEventListener("keydown", closeModal);
-		}
+	closeModal(e);
+}
+function openModal(eventClik) {
+	instance = basicLightbox.create(`
+	    <div class="modal">
+	        <img src="${eventClik.target.dataset.source}" width ="960">
+	    </div>
+	`);
+	instance.show();
+}
+function closeModal(eventKeydown) {
+	if (eventKeydown.code === "Escape") {
+		instance.close();
+		document.removeEventListener("keydown", closeModal);
 	}
 }
