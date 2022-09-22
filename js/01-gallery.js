@@ -25,9 +25,8 @@ listRef.addEventListener("click", showImageFullSizeInModal);
 
 function showImageFullSizeInModal(e) {
 	e.preventDefault();
-	if (!e.target.classList.contains("gallery__image")) {
-		return;
-	}
+	if (!e.target.classList.contains("gallery__image")) return;
+
 	const instance = basicLightbox.create(`
 	    <div class="modal">
 	        <img src="${e.target.dataset.source}">
