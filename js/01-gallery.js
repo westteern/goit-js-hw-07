@@ -30,6 +30,7 @@ listRef.addEventListener("click", showImageFullSizeInModal);
 
 function showImageFullSizeInModal(e) {
 	e.preventDefault();
+
 	if (!e.target.classList.contains("gallery__image")) return;
 
 	openModal(e);
@@ -38,6 +39,7 @@ function showImageFullSizeInModal(e) {
 
 	closeModal(e);
 }
+
 function openModal(eventClik) {
 	instance = basicLightbox.create(`
 	    <div class="modal">

@@ -15,3 +15,9 @@ function markupGallery(gallery) {
 }
 const markup = markupGallery(gallery);
 listRef.innerHTML = markup;
+
+let lightboxOnClick = new SimpleLightbox(".gallery a", {
+	captions: true,
+	captionsData: "alt",
+	captionDelay: 250,
+});
