@@ -27,6 +27,7 @@ listRef.innerHTML = markup;
 let instance = basicLightbox.create(``);
 
 listRef.addEventListener("click", showImageFullSizeInModal);
+// listRef.addEventListener("click", removeListnerOnClick);
 
 function showImageFullSizeInModal(e) {
 	e.preventDefault();
@@ -52,5 +53,11 @@ function closeModal(eventKeydown) {
 	if (eventKeydown.code === "Escape") {
 		instance.close();
 		document.removeEventListener("keydown", closeModal);
+		console.log(eventKeydown);
 	}
 }
+// function removeListnerOnClick(e) {
+// 	if (e.target.classList.contains === "basicLightbox__placeholder") {
+// 		document.removeEventListener("keydown", closeModal);
+// 	}
+// }
