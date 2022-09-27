@@ -27,7 +27,6 @@ listRef.innerHTML = markup;
 let instance = basicLightbox.create(``);
 
 listRef.addEventListener("click", showImageFullSizeInModal);
-// listRef.addEventListener("click", removeListnerOnClick);
 
 function showImageFullSizeInModal(e) {
 	e.preventDefault();
@@ -36,28 +35,31 @@ function showImageFullSizeInModal(e) {
 
 	openModal(e);
 
-	document.addEventListener("keydown", closeModal);
-
 	closeModal(e);
 }
 
 function openModal(eventClik) {
-	instance = basicLightbox.create(`
+	instance = basicLightbox.create(
+		`
 	    <div class="modal">
 	        <img src="${eventClik.target.dataset.source}" width ="960">
 	    </div>
-	`);
+	`,
+		{
+			onShow: () => {
+				document.addEventListener("keydown", closeModal);
+			},
+
+			onClose: () => {
+				document.removeEventListener("keydown", closeModal);
+			},
+		},
+	);
 	instance.show();
 }
 function closeModal(eventKeydown) {
 	if (eventKeydown.code === "Escape") {
 		instance.close();
-		document.removeEventListener("keydown", closeModal);
-		console.log(eventKeydown);
+		console.log("keydown", event.code);
 	}
 }
-// function removeListnerOnClick(e) {
-// 	if (e.target.classList.contains === "basicLightbox__placeholder") {
-// 		document.removeEventListener("keydown", closeModal);
-// 	}
-// }
